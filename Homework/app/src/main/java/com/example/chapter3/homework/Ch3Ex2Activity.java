@@ -128,7 +128,7 @@ public class Ch3Ex2Activity extends AppCompatActivity {
 
         // 在这里实现了一个 ObjectAnimator，对 target 控件的背景色进行修改
         // 可以思考下，这里为什么要使用 ofArgb，而不是 ofInt 呢？
-        ObjectAnimator animator1 = ObjectAnimator.ofArgb(target,
+        ObjectAnimator animator1 = ObjectAnimator.ofInt(target,
                 "backgroundColor",
                 getBackgroundColor(startColorPicker),
                 getBackgroundColor(endColorPicker));
@@ -136,13 +136,38 @@ public class Ch3Ex2Activity extends AppCompatActivity {
         animator1.setRepeatCount(ObjectAnimator.INFINITE);
         animator1.setRepeatMode(ObjectAnimator.REVERSE);
 
+        ObjectAnimator animator2_1 = ObjectAnimator.ofFloat(target,
+                "scaleX",
+                1f,2f);
+        animator2_1.setDuration(Integer.parseInt(durationSelector.getText().toString()));
+        animator2_1.setRepeatCount(ObjectAnimator.INFINITE);
+        animator2_1.setRepeatMode(ObjectAnimator.REVERSE);
+        ObjectAnimator animator2_11 = ObjectAnimator.ofFloat(target,
+                "scaleY",
+                1f,2f);
+        animator2_11.setDuration(Integer.parseInt(durationSelector.getText().toString()));
+        animator2_11.setRepeatCount(ObjectAnimator.INFINITE);
+        animator2_11.setRepeatMode(ObjectAnimator.REVERSE);
         // TODO ex2-1：在这里实现另一个 ObjectAnimator，对 target 控件的大小进行缩放，从 1 到 2 循环
 
+        ObjectAnimator animator2_2 = ObjectAnimator.ofFloat(target,
+                "alpha",
+                1,
+                0.5f
+                );
+        animator2_2.setDuration(Integer.parseInt(durationSelector.getText().toString()));
+        animator2_2.setRepeatCount(ObjectAnimator.INFINITE);
+        animator2_2.setRepeatMode(ObjectAnimator.REVERSE);
         // TODO ex2-2：在这里实现另一个 ObjectAnimator，对 target 控件的透明度进行修改，从 1 到 0.5f 循环
 
         // TODO ex2-3: 将上面创建的其他 ObjectAnimator 都添加到 AnimatorSet 中
         animatorSet = new AnimatorSet();
         animatorSet.playTogether(animator1);
+
+        animatorSet.playTogether(animator2_1);
+        animatorSet.playTogether(animator2_2);
+        animatorSet.playTogether(animator2_11);
+
         animatorSet.start();
     }
 }

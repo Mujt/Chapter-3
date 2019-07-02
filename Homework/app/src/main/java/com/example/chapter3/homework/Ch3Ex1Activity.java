@@ -1,12 +1,19 @@
 package com.example.chapter3.homework;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieProperty;
+import com.airbnb.lottie.model.KeyPath;
+import com.airbnb.lottie.value.LottieValueCallback;
 
 public class Ch3Ex1Activity extends AppCompatActivity {
     private LottieAnimationView animationView;
@@ -21,6 +28,7 @@ public class Ch3Ex1Activity extends AppCompatActivity {
         animationView = findViewById(R.id.animation_view);
         loopCheckBox = findViewById(R.id.loop_checkbox);
         seekBar = findViewById(R.id.seekbar);
+        //pointView = findViewById(R.id.animation_view);
 
         loopCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -40,6 +48,16 @@ public class Ch3Ex1Activity extends AppCompatActivity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                //System.out.println(animationView.getFrame() + " " + animationView.getMinFrame()+" "+animationView.getMaxFrame()+ " " + animationView.getDuration());
+                float DurFrame = animationView.getMaxFrame()-animationView.getMinFrame();
+                float extralFrame = progress%DurFrame;
+                System.out.println(progress+" "+extralFrame);
+                if (progress <= DurFrame) {
+                    animationView.setProgress(progress / DurFrame);
+                } else {
+                    animationView.setProgress(extralFrame/ DurFrame);
+                }
+                animationView.invalidate();
                 // TODO ex1-2: 这里应该调用哪个函数呢
                 // 提示1：可以参考 https://airbnb.io/lottie/#/android?id=custom-animators
                 // 提示2：SeekBar 的文档可以把鼠标放在 OnProgressChanged 中间，并点击 F1 查看，
